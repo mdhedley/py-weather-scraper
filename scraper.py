@@ -31,7 +31,7 @@ class WeatherScraper:
         blob.upload_from_string(ciphertext)
 
     def decrypt_key(self):
-        sc = storage.Client()
+        sc = storage.Client(project_id)
         bucket = sc.bucket(encrypted_bucket)
         blob = bucket.blob(secret)
         cipher_text = blob.download_as_string()
@@ -53,7 +53,7 @@ class WeatherScraper:
         weather = url.read()
         url.close()
         now = datetime.datetime.now()
-        blob = storage.Client().bucket(weather_bucket).blob('{}/{}/{}/{}.{}.{}.{}'.format(now.year,now.month,now.day,now.hour,now.minute,now.second,now.microsecond))
+        blob = storage.Client(project_id).bucket(weather_bucket).blob('{}/{}/{}/{}.{}.{}.{}'.format(now.year,now.month,now.day,now.hour,now.minute,now.second,now.microsecond))
         blob.upload_from_string(weather)
 
         
