@@ -25,7 +25,7 @@ class WeatherScraper:
         )
         response = request.execute()
         ciphertext = base64.b64decode(response['ciphertext'].encode('ascii'))
-        sc = storage.Client()
+        sc = storage.Client(project_id)
         bucket = sc.bucket(encrypted_bucket)
         blob = bucket.blob(secret)
         blob.upload_from_string(ciphertext)
